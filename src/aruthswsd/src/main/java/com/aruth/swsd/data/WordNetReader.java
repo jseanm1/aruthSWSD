@@ -10,7 +10,7 @@ import net.sf.extjwnl.dictionary.Dictionary;
 
 public class WordNetReader {
 
-	private final static String WORDNETPATH = "data/clean-file";
+	private final static String WORDNETPATH = "conf/file_properties.xml";
 
 	/**
 	 * @param String noun : the noun to be retrieved from the Sinhala WordNet. unicode character encoding
