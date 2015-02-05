@@ -1,5 +1,6 @@
 package com.aruth.swsd.algorithms;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.aruth.swsd.utilities.Preprocessor;
@@ -28,8 +29,14 @@ public class OptimizedLesk {
 	 * @param List<String> glosses : glosses of the senses of the target polysemous word
 	 * @return int location of the glosses list where the implied sense is stored
 	 * This is actually the simplified lesk algorithm
+	 * @throws IOException 
 	 */
-	public int getNounSense (String context, List<String> glosses) {
+	public int getNounSense (String context, List<String> glosses) throws IOException {
+		// preprocess context
+		pContext = Preprocessor.preprocessContext(context);
+				
+		// preprocess glosses
+		pGlosses = Preprocessor.preprocessGlosses(glosses);
 		
 		int size = pGlosses.size();
 		float overLapCount[] = new float[size];
@@ -51,11 +58,12 @@ public class OptimizedLesk {
 	 * of the target polysemous word
 	 * @return int location of the glosses list where the implied sense is stored
 	 * This is the optimized lesk algorithm
+	 * @throws IOException 
 	 */
 	public int getNounSense (	String context, 
 								List<String> glosses, 
 								List<String> parentGlosses, 
-								List<String> childGlosses) {
+								List<String> childGlosses) throws IOException {
 		int maxIndex = 0;
 		
 		// preprocess context
