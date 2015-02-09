@@ -1,5 +1,7 @@
 package com.aruth.swsd;
 
+import com.aruth.swsd.exceptions.AruthSWSDException;
+
 public class Main {
 
 	/**
@@ -17,10 +19,19 @@ public class Main {
 		
 		String target = "මුව";
 		
-		System.out.println(disambiguator.getNounSenseUsingSimplifiedLesk(context, target));
+		try {
+			System.out.println(disambiguator.getNounSenseUsingSimplifiedLesk(context, target));
+			
+		} catch (AruthSWSDException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		System.out.println(disambiguator.getNounSensesUsingOptimizedLesk(context, target));
-
+		try {
+			System.out.println(disambiguator.getNounSensesUsingOptimizedLesk(context, target));
+		} catch (AruthSWSDException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
 }

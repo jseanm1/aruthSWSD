@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.aruth.swsd.data.StopWordReader;
+import com.aruth.swsd.exceptions.AruthSWSDException;
 
 public class Preprocessor {
 
@@ -14,8 +15,9 @@ public class Preprocessor {
 	 * @param String context : the context as a String
 	 * @return List<String> the preprocessed context as a list of words
 	 * @throws IOException
+	 * @throws AruthSWSDException 
 	 */
-	public static List<String> preprocessContext (String context) throws IOException {
+	public static List<String> preprocessContext (String context) throws AruthSWSDException {
 		// get stop words
 		List<String> stopWords = new StopWordReader().getStopWords();
 		

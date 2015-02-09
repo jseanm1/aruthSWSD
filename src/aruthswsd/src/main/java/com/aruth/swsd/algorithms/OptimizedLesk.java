@@ -3,6 +3,7 @@ package com.aruth.swsd.algorithms;
 import java.io.IOException;
 import java.util.List;
 
+import com.aruth.swsd.exceptions.AruthSWSDException;
 import com.aruth.swsd.utilities.Preprocessor;
 
 public class OptimizedLesk {
@@ -30,8 +31,9 @@ public class OptimizedLesk {
 	 * @return int location of the glosses list where the implied sense is stored
 	 * This is actually the simplified lesk algorithm
 	 * @throws IOException 
+	 * @throws AruthSWSDException 
 	 */
-	public int getNounSense (String context, List<String> glosses) throws IOException {
+	public int getNounSense (String context, List<String> glosses) throws AruthSWSDException {
 		// preprocess context
 		pContext = Preprocessor.preprocessContext(context);
 				
@@ -59,11 +61,12 @@ public class OptimizedLesk {
 	 * @return int location of the glosses list where the implied sense is stored
 	 * This is the optimized lesk algorithm
 	 * @throws IOException 
+	 * @throws AruthSWSDException 
 	 */
 	public int getNounSense (	String context, 
 								List<String> glosses, 
 								List<String> parentGlosses, 
-								List<String> childGlosses) throws IOException {
+								List<String> childGlosses) throws AruthSWSDException {
 		int maxIndex = 0;
 		
 		// preprocess context

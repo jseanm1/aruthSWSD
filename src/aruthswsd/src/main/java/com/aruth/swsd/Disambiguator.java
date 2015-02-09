@@ -11,6 +11,7 @@ import net.sf.extjwnl.data.list.PointerTargetNodeList;
 
 import com.aruth.swsd.algorithms.OptimizedLesk;
 import com.aruth.swsd.data.WordNetReader;
+import com.aruth.swsd.exceptions.AruthSWSDException;
 
 public class Disambiguator {
 
@@ -20,8 +21,11 @@ public class Disambiguator {
 	 * @param String context : the context
 	 * @param String target : the polysemous word to be disambiguated
 	 * @return String the sense of the polysemous word implied in the context
+	 * @throws AruthSWSDException 
+	 * @throws IOException 
 	 */
-	public String getNounSenseUsingSimplifiedLesk (String context, String target) {
+	public String getNounSenseUsingSimplifiedLesk (String context, String target) 
+			throws AruthSWSDException {
 		IndexWord word = WordNetReader.getNounAsIndexWord(target);
 		List <String> glosses;
 		String sense;
@@ -29,22 +33,18 @@ public class Disambiguator {
 		int senseIndex;
 		
 		if (word == null) {
-			String error = "no match found for noun " + target;
+			String error = "no match found for noun IOException, " + target;
 			System.out.println(error);
 			return error;
 		} 
 		
 		glosses = getGlosses(word);
 		
-		try {
-			senseIndex = new OptimizedLesk().getNounSense(context, glosses);
-			gloss = glosses.get(senseIndex);
-			sense = getSenseOfAGloss(gloss);
-			return sense;
-		} catch (IOException e) {
-			System.out.println(e.getLocalizedMessage());
-			return null;
-		}		
+		senseIndex = new OptimizedLesk().getNounSense(context, glosses);
+		gloss = glosses.get(senseIndex);
+		sense = getSenseOfAGloss(gloss);
+		return sense;
+				
 	}
 	
 	/**
@@ -53,8 +53,10 @@ public class Disambiguator {
 	 * @param String context : the context
 	 * @param String target : the polysemous word to be disambiguated
 	 * @return String the sense of the polysemous word implied in the context
+	 * @throws AruthSWSDException 
 	 */
-	public String getNounSensesUsingOptimizedLesk (String context, String target) {
+	public String getNounSensesUsingOptimizedLesk (String context, String target) 
+			throws AruthSWSDException {
 		IndexWord word = WordNetReader.getNounAsIndexWord(target);
 		List <String> glosses, parentGlosses, childGlosses;
 		String sense;
@@ -71,15 +73,14 @@ public class Disambiguator {
 		parentGlosses = getParentGlosses(word);
 		childGlosses = getChildGosses(word);
 		
-		try {
-			senseIndex = new OptimizedLesk().getNounSense(context, glosses, parentGlosses, childGlosses);
-			gloss = glosses.get(senseIndex);
-			sense = getSenseOfAGloss(gloss);
-			return sense;
-		} catch (IOException e) {
-			System.out.println(e.getLocalizedMessage());
-			return null;
-		}
+		senseIndex = new OptimizedLesk().getNounSense(context, 
+														glosses, 
+														parentGlosses, 
+														childGlosses);
+		gloss = glosses.get(senseIndex);
+		sense = getSenseOfAGloss(gloss);
+		return sense;
+		
 	}
 	
 	/*
