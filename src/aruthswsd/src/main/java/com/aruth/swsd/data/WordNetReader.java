@@ -32,14 +32,21 @@ public class WordNetReader {
 		try {
 			word = dictionary.getIndexWord(POS.NOUN, noun);
 			
-			return word;
-			
 		} catch (JWNLException e) {
 			String errorMessage = "Exception occured trying to read WordNet :" + e.getLocalizedMessage();
 			System.err.println(errorMessage);
 			
 			throw new AruthSWSDException(ErrorCodes.CANNOT_READ_DICTIONARY, errorMessage, null);
 		}
+		
+		if (word == null) {
+			String errorMessage = "Target word " + noun + "not found in WordNet";
+			System.err.println(errorMessage);
+			
+			throw new AruthSWSDException(ErrorCodes.WORD_NOT_FOUND, errorMessage, null);
+		}
+		
+		return word;
 	}
 
 	/**

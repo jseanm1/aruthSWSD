@@ -22,7 +22,7 @@ public class Preprocessor {
 		List<String> stopWords = new StopWordReader().getStopWords();
 		
 		// replace other characters and get the user context as a list of Strings
-		List<String> pContextTemp = Arrays.asList(context.replaceAll("[|\"]", " ").split(" "));
+		List<String> pContextTemp = Arrays.asList(context.replaceAll("[\\[\\]|\".,]", " ").split(" "));
 		List<String> pContext = new ArrayList<String>();
 			
 		for (String word : pContextTemp) {
@@ -44,7 +44,7 @@ public class Preprocessor {
 		List<String> pGlosses = new ArrayList<String>();
 			
 		for (String gloss : glosses) {
-			pGlosses.add(gloss.trim().replaceAll(" +", " ").replaceAll("[|,\"]", " ").trim().replaceAll(" +", " "));
+			pGlosses.add(gloss.trim().replaceAll(" +", " ").replaceAll("[\\[\\]|\".,]", " ").trim().replaceAll(" +", " "));
 		}
 		
 		return pGlosses;
