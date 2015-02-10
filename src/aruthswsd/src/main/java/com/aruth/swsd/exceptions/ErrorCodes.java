@@ -2,7 +2,7 @@ package com.aruth.swsd.exceptions;
 
 public class ErrorCodes {
 
-	private ErrorCodes () {
+	private ErrorCodes() {
 		
 	}
 	
@@ -18,5 +18,8 @@ public class ErrorCodes {
 	public final static String CANNOT_READ_DICTIONARY = "000004";
 	
 	public final static String CANNOT_CREATE_DICTIONARY = "000005";
+
+    public final static String WORD_NOT_FOUND = "100001";
+
 
 }
